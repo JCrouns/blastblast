@@ -36,6 +36,43 @@ int	can_move(t_crouns_game *game, int new_row, int new_col, char direction)
 	}
 	return (0);
 }
+void move_and_eat(t_crouns_game *game, int new_row, int new_col)
+{
+
+    if (game->map[new_row][new_col] == COLLECTABLE)
+    {
+        game->collected_fruits++;
+    }
+
+
+    if (game->map[new_row][new_col] == EXIT)
+    {
+
+        if (game->collected_fruits == game->total_fruits) 
+        {
+            exit(1);
+        }
+        else
+        {
+        
+            return; 
+        }
+    }
+
+  
+    game->map[game->player_r_pos][game->player_c_pos] = SPACE;
+    game->player_r_pos = new_row;
+    game->player_c_pos = new_col;
+    game->map[game->player_r_pos][game->player_c_pos] = PLAYER;
+
+  
+    if (game->map[game->player_r_pos][game->player_c_pos] == SPACE)
+    {
+      
+        game->map[game->exit_r_pos][game->exit_c_pos] = EXIT;
+    }
+}
+
 
 void	move_and_eat(t_crouns_game *game, int new_row, int new_col)
 {
@@ -82,3 +119,4 @@ int	move_player(t_crouns_game *game, char direction)
 	}
 	return (0);
 }
+
